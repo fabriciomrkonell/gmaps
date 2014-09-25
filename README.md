@@ -1,4 +1,4 @@
-gmaps
+Google Maps
 =====
 
-Aplicação com Google Maps.
+* Colorir território
