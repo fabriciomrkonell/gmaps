@@ -50,14 +50,6 @@ app.get('/cidade/:estado', function(req, res){
 	});
 });
 
-app.get('/adicionar', function(req, res){
-	var url = 'INSERT INTO gmaps.coordenada values (' + req.param("cod") + ', ' + req.param("lat") + ', ' + req.param("log") + ')';
-	console.log(url);
-	connection.query(url, function(err, rows, fields) {
-  	res.send(url);
-	});
-});
-
 http.createServer(app).listen(app.get('port'), function() {
 	console.log('GMaps rodando!')
 })

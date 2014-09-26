@@ -5,6 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Google Maps</title>
+    <link rel="shortcut icon" href="/lib/img/icon.png">
 		<link rel="stylesheet" type="text/css" href="lib/css/foundation.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 	</head>
@@ -29,11 +30,11 @@
                 <div class="large-5 small-5 columns">
                   <select class="select-menu" ng-model="cidade" ng-disabled="select.cidade.length < 1">
                     <option value="-1">Selecione</option>
-                    <option ng-repeat="obj in select.cidade" ng-value="obj.sigla">{{obj.descricao}}</option>
+                    <option ng-repeat="obj in select.cidade" ng-value="obj.codigo">{{obj.descricao}}</option>
                   </select>
                 </div>
                 <div class="large-2 small-2 columns">
-                  <a href="javascript:void(0)" ng-click="getMapa()" class="button">Procurar</a>
+                  <a ng-disabled="cidade == -1" href="javascript:void(0)" ng-click="getPolygons(cidade)" class="button">Procurar</a>
                 </div>
               </div>
             </li>
