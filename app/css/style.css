@@ -6,9 +6,12 @@ body {
 	display: none;
 }
 
-.select-menu {
-	margin-top: 4px;
-	width: 180px;
+.select-combo {
+	width: 200px !important;
+}
+
+.row-map {
+	margin-top: 50px;
 }
 
 #map_canvas {
