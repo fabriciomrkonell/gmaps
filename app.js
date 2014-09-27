@@ -36,18 +36,40 @@ app.get('/estado', function(req, res){
 });
 
 app.get('/cidade', function(req, res){
-	connection.query('SELECT * FROM gmaps.cidade', function(err, rows, fields) {
+	connection.query('SELECT codigo FROM gmaps.cidade', function(err, rows, fields) {
   	if (err) throw res.sendStatus(404);
   	res.send(rows);
 	});
 });
 
+app.get('/adicionar', function(req, res){
+  var url = 'INSERT INTO gmaps.coordenada values (' + parseInt(req.param("cidade")) + ', ' + req.param("lat") + ' ,' + req.param("long") + ')';
+  console.log(url);
+  connection.query(url, function(err, rows, fields) {
+    console.log("Erro:");
+    console.log(err);
+    res.send(rows);
+  });
+});
+
 app.get('/cidade/:estado', function(req, res){
-  var url = 'SELECT * FROM gmaps.cidade where estado = "' + req.param('estado') + '"'
+  var url = 'SELECT * FROM gmaps.cidade where estado = "' + req.param('estado') + '"';
 	connection.query(url, function(err, rows, fields) {
   	if (err) throw res.sendStatus(404);
   	res.send(rows);
 	});
+});
+
+app.get('/coordenada', function(req, res){
+  var url = 'SELECT cidade, latitude, longitude FROM gmaps.coordenada order by cidade';
+  var url2 = 'SELECT codigo, descricao FROM gmaps.cidade order by codigo';
+  connection.query(url, function(err, rows1, fields) {
+    if (err) throw res.sendStatus(404);
+    connection.query(url, function(err, rows2, fields) {
+      if (err) throw res.sendStatus(404);
+      res.send({nomes: rows2, cidades: rows2});
+    });
+  });
 });
 
 http.createServer(app).listen(app.get('port'), function() {
