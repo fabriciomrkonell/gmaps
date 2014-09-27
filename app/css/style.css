@@ -1,17 +1,17 @@
 body {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .ng-cloak {
-	display: none;
+  display: none;
 }
 
 .select-combo {
-	width: 200px !important;
+  width: 200px !important;
 }
 
 .row-map {
-	margin-top: 50px;
+  margin-top: 50px;
 }
 
 #map_canvas {

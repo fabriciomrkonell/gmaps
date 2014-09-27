@@ -1,7 +1,7 @@
 var mysql   = require('mysql'),
-		express = require('express'),
-		http		= require('http'),
-		path    = require('path');
+    express = require('express'),
+    http    = require('http'),
+    path    = require('path');
 
 var app = express();
 
@@ -22,24 +22,24 @@ app.get('/', function(req, res){
 });
 
 app.get('/pais', function(req, res){
-	connection.query('SELECT * FROM gmaps.pais', function(err, rows, fields) {
-  	if (err) throw res.sendStatus(404);
-  	res.send(rows);
-	});
+  connection.query('SELECT * FROM gmaps.pais', function(err, rows, fields) {
+    if (err) throw res.sendStatus(404);
+    res.send(rows);
+  });
 });
 
 app.get('/estado', function(req, res){
-	connection.query('SELECT * FROM gmaps.estado', function(err, rows, fields) {
-  	if (err) throw res.sendStatus(404);
-  	res.send(rows);
-	});
+  connection.query('SELECT * FROM gmaps.estado', function(err, rows, fields) {
+    if (err) throw res.sendStatus(404);
+    res.send(rows);
+  });
 });
 
 app.get('/cidade', function(req, res){
-	connection.query('SELECT codigo FROM gmaps.cidade', function(err, rows, fields) {
-  	if (err) throw res.sendStatus(404);
-  	res.send(rows);
-	});
+  connection.query('SELECT codigo FROM gmaps.cidade', function(err, rows, fields) {
+    if (err) throw res.sendStatus(404);
+    res.send(rows);
+  });
 });
 
 app.get('/adicionar', function(req, res){
@@ -54,10 +54,10 @@ app.get('/adicionar', function(req, res){
 
 app.get('/cidade/:estado', function(req, res){
   var url = 'SELECT * FROM gmaps.cidade where estado = "' + req.param('estado') + '"';
-	connection.query(url, function(err, rows, fields) {
-  	if (err) throw res.sendStatus(404);
-  	res.send(rows);
-	});
+  connection.query(url, function(err, rows, fields) {
+    if (err) throw res.sendStatus(404);
+    res.send(rows);
+  });
 });
 
 app.get('/coordenada', function(req, res){
@@ -69,5 +69,5 @@ app.get('/coordenada', function(req, res){
 });
 
 http.createServer(app).listen(app.get('port'), function() {
-	console.log('GMaps rodando!')
+  console.log('GMaps rodando!')
 })
