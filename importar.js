@@ -43,14 +43,14 @@ function getCoordenadas(arrayCoordenada, posicaoCoordenada, arrayCidade, posicao
           console.log(dataArray[cidade][posicaoCoordenada] + " - " + posicaoCoordenada + " - " + cidade + " - " + nomeCidade);
           setTimeout(function(){
             savarCoordenada(dataArray[cidade][posicaoCoordenada], arrayCoordenada, posicaoCoordenada, dataArray[cidade], arrayCidade, posicaoCidade, cidade, nomeCidade, siglaEstado);
-          }, 10);
+          }, 1);
         });
       }else{
         dataArray = JSON.parse(arrayCoordenada);
         console.log(dataArray[cidade][posicaoCoordenada] + " - " + posicaoCoordenada + " - " + cidade + " - " + nomeCidade);
         setTimeout(function(){
           savarCoordenada(dataArray[cidade][posicaoCoordenada], arrayCoordenada, posicaoCoordenada, dataArray[cidade], arrayCidade, posicaoCidade, cidade, nomeCidade, siglaEstado);
-        }, 10);
+        }, 1);
       }
     }
   }
