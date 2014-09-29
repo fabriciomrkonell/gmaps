@@ -32,21 +32,23 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     });
   };
 
-  $scope.getPolygons = function(cidade){
-    $http({method: 'GET', url: '/json/' + cidade + '.json' }).success(function(data, status, headers, config) {
-      $scope.colorir(data[cidade]);
-    });
-  };
+  $scope.getPolygons = function(estado, cidade){
 
-  $scope.colorir = function(data){
+    var url = "";
 
     if(angular.isObject(googleMaps)){
       googleMaps.setMap(null);
     };
 
+    if(cidade == "-1"){
+      url = '/coordenada/estado/' + estado;
+    }else{
+      url = '/coordenada/cidade/' + cidade;
+    }
+
     //map.setCenter(new google.maps.LatLng(data[0].split(",")[0],data[0].split(",")[1]));
 
-    $http({method: 'GET', url: '/coordenada' }).success(function(dados, status, headers, config) {
+    $http({method: 'GET', url: url }).success(function(dados, status, headers, config) {
 
       var coords = [];
       var cidade = dados[0].cidade;

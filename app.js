@@ -60,8 +60,16 @@ app.get('/cidade/:estado', function(req, res){
   });
 });
 
-app.get('/coordenada', function(req, res){
-  var url = 'SELECT cidade, descricao, latitude, longitude FROM gmaps.coordenada order by cidade';
+app.get('/coordenada/estado/:estado', function(req, res){
+  var url = 'select cidade, descricaoCidade, latitude, longitude from gmaps.coordenada where estado = "' + req.param('estado') + '"';
+  connection.query(url, function(err, rows, fields) {
+    if (err) throw res.sendStatus(404);
+    res.send(rows);
+  });
+});
+
+app.get('/coordenada/cidade/:cidade', function(req, res){
+  var url = 'select cidade, descricaoCidade, latitude, longitude from gmaps.coordenada where cidade = "' + req.param('cidade') + '"';
   connection.query(url, function(err, rows, fields) {
     if (err) throw res.sendStatus(404);
     res.send(rows);
