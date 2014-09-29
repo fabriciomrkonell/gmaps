@@ -1,5 +1,6 @@
 'use strict'
 
+
 angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
 
   angular.extend($scope, {
@@ -11,9 +12,16 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     }
   });
 
+  $("body").mousemove(function(e){
+    $("#tooltip").css({
+      "margin-left": e.pageX+15,
+      "margin-top": e.pageY+5
+    });
+  });
+
   var mapOptions = {
     zoom: 5,
-    center: new google.maps.LatLng(24.886436490787712, -70.2685546875),
+    center: new google.maps.LatLng(-12.12527949751654, -56.030248437499955),
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
 
@@ -43,7 +51,7 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     };
 
     googleMaps = new google.maps.Polygon({
-      cidade: dados[i],
+      cidade: dados[0],
       paths: coords,
       strokeColor: '#FF0000',
       strokeOpacity: 0.8,
@@ -53,13 +61,7 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     });
 
     googleMaps.setMap(map);
-
-    google.maps.event.addListener(googleMaps,"mouseover",function(){
-      this.setOptions({fillColor: "#00FF00"});
-    });
-
-    google.maps.event.addListener(googleMaps,"click",function(){
-    });
+    $scope.adicionarEventos(googleMaps);
   };
 
   $scope.colorirEstado = function(dados) {
@@ -82,21 +84,29 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
         });
 
         googleMaps.setMap(map);
-
-        google.maps.event.addListener(googleMaps,"mouseover",function(){
-          this.setOptions({fillColor: "#00FF00"});
-        });
-
-        google.maps.event.addListener(googleMaps,"click",function(){
-        });
-
+        $scope.adicionarEventos(googleMaps);
         coords = [];
-
         cidade = dados[i].cidade;
       }else{
         coords.push(new google.maps.LatLng(dados[i].latitude, dados[i].longitude));
       }
     };
+  };
+
+  $scope.adicionarEventos = function(googleMaps) {
+    google.maps.event.addListener(googleMaps,"mouseover",function(e){
+      $("body").append('<div id="tooltip"></div>');
+      $("#tooltip").html(googleMaps.cidade.descricaoCidade);
+      $("#tooltip").css("display", "block");
+    });
+
+    google.maps.event.addListener(googleMaps,"mouseout",function(e){
+      $("#tooltip").css("display", "none");
+    });
+
+    google.maps.event.addListener(googleMaps,"click",function(){
+      $(".modal").modal("show");
+    });
   };
 
 
