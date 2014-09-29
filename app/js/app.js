@@ -58,9 +58,7 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
       this.setOptions({fillColor: "#00FF00"});
     });
 
-    google.maps.event.addListener(googleMaps,"click",function(a,b,c,d,e){
-      console.log(this.cidade);
-      console.log(a);
+    google.maps.event.addListener(googleMaps,"click",function(){
     });
   };
 
@@ -89,9 +87,7 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
           this.setOptions({fillColor: "#00FF00"});
         });
 
-        google.maps.event.addListener(googleMaps,"click",function(a,b,c,d,e){
-          console.log(this.cidade);
-          console.log(a);
+        google.maps.event.addListener(googleMaps,"click",function(){
         });
 
         coords = [];
@@ -102,6 +98,7 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
       }
     };
   };
+
 
   $scope.getPolygons = function(estado, cidade){
 
