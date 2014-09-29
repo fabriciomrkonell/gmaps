@@ -19,6 +19,9 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     });
   });
 
+  $("body").append('<div id="tooltip"></div>');
+  $("#tooltip").css("display", "none");
+
   var mapOptions = {
     zoom: 5,
     center: new google.maps.LatLng(-12.12527949751654, -56.030248437499955),
@@ -95,7 +98,6 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
 
   $scope.adicionarEventos = function(googleMaps) {
     google.maps.event.addListener(googleMaps,"mouseover",function(e){
-      $("body").append('<div id="tooltip"></div>');
       $("#tooltip").html(googleMaps.cidade.descricaoCidade);
       $("#tooltip").css("display", "block");
     });
