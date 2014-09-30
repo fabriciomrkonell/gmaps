@@ -1,16 +1,25 @@
 'use strict'
 
+var scope;
+
+function g1_previsao_cidade(data){
+  scope.openModal(data);
+};
 
 angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$http', '$timeout', function($scope, $http, $timeout){
 
   angular.extend($scope, {
     estado: "-1",
     cidade: "-1",
+    temperatura: {},
+    frase: "",
     select: {
       estado: [],
       cidade: []
     }
   });
+
+  scope = $scope;
 
   $("body").mousemove(function(e){
     $("#tooltip").css({
@@ -41,6 +50,18 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     $http({method: 'GET', url: '/cidade/' + estado }).success(function(data, status, headers, config) {
       $scope.select.cidade = data;
     });
+  };
+
+  $scope.openModal = function(cidade) {
+    angular.extend($scope, {
+      frase: cidade.previsoes[0].frase,
+      temperatura: {
+        maxima: cidade.previsoes[0].temperatura.maxima,
+        minima: cidade.previsoes[0].temperatura.minima,
+        unidade: cidade.previsoes[0].temperatura.unidade
+      }
+    });
+    $(".modal").modal("show");
   };
 
   $scope.colorirCidade = function(dados) {
@@ -107,10 +128,20 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     });
 
     google.maps.event.addListener(googleMaps,"click",function(){
-      $(".modal").modal("show");
+      $scope.getInformacoesCidade(googleMaps.cidade);
     });
   };
 
+  $scope.getInformacoesCidade = function(cidade) {
+    var url = "http://api.g1.globo.com/tempo/cidade-resumida/" + $scope.estado.toLowerCase() + "/";
+    url = url + $scope.converterCidade(cidade.descricaoCidade) + ".jsonp";
+    $http({method: 'JSONP', url: url });
+  };
+
+  $scope.converterCidade = function(cidade) {
+    cidade = cidade.toLowerCase().replace(" ", "-");
+    return cidade;
+  };
 
   $scope.getPolygons = function(estado, cidade){
 
