@@ -46,3 +46,7 @@ body {
 .temp-modal {
 	text-align: center;
 }
+
+#tooltip {
+	display: none;
+}

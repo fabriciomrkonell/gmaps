@@ -29,12 +29,12 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
   });
 
   $("body").append('<div id="tooltip"></div>');
-  $("#tooltip").css("display", "none");
 
   var mapOptions = {
     zoom: 5,
     center: new google.maps.LatLng(-12.12527949751654, -56.030248437499955),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    disableDefaultUI: true
   };
 
   var googleMaps = null;
@@ -77,10 +77,10 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
     googleMaps = new google.maps.Polygon({
       cidade: dados[0],
       paths: coords,
-      strokeColor: '#FF0000',
+      strokeColor: '#101010',
       strokeOpacity: 0.8,
       strokeWeight: 2,
-      fillColor: '#FF0000',
+      fillColor: '#101010',
       fillOpacity: 0.35
     });
 
@@ -100,10 +100,10 @@ angular.module('appGoogleMaps', []).controller('ctrlGoogleMaps', ['$scope', '$ht
         googleMaps = new google.maps.Polygon({
           cidade: dados[i],
           paths: coords,
-          strokeColor: '#FF0000',
+          strokeColor: '#101010',
           strokeOpacity: 0.8,
           strokeWeight: 2,
-          fillColor: '#FF0000',
+          fillColor: '#101010',
           fillOpacity: 0.35
         });
 
